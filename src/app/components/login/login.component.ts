@@ -24,8 +24,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     this.usr = this.loginForm.controls.username.value;
-    this.pass = this.loginForm.controls.username.value;
-    console.warn(this.usr);
+    this.pass = this.loginForm.controls.password.value;
     this.service.login(this.usr, this.pass);
   }
 
