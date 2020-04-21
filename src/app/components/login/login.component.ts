@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ManageUsersService } from '../../services/manage-users.service';
-import { Router } from '@angular/router';
+import { UsersService } from '../../services/users.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,22 +8,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  
+  usr: string;
+  pass: string;
+  loginForm = new FormGroup({
+      username: new FormControl(''),
+      password: new FormControl(''),
+  });
+  message: any;
 
-  username: string;
-  password: string;
-  message: any
-
-  constructor(private service: ManageUsersService,private router:Router) { }
+  constructor(private service: UsersService) { }
 
   ngOnInit() {
   }
-
-  doLogin() {
-    let resp = this.service.login(this.username, this.password);
-    resp.subscribe(data => {
-      this.message = data;
-      this.router.navigate(["/"])
-    });
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    this.usr = this.loginForm.controls.username.value;
+    this.pass = this.loginForm.controls.username.value;
+    console.warn(this.usr);
+    this.service.login(this.usr, this.pass);
   }
 
 }
